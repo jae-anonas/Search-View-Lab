@@ -40,8 +40,16 @@ public class ShoppingSQLiteOpenHelper extends SQLiteOpenHelper{
                     COL_ITEM_PRICE + " REAL, " +
                     COL_ITEM_TYPE + " TEXT )";
 
+    private static ShoppingSQLiteOpenHelper mShoppingSQLiteOpenHelper;
 
-    public ShoppingSQLiteOpenHelper(Context context) {
+    public static ShoppingSQLiteOpenHelper getInstance (Context context){
+        if (mShoppingSQLiteOpenHelper == null)
+            mShoppingSQLiteOpenHelper = new ShoppingSQLiteOpenHelper(context);
+        return mShoppingSQLiteOpenHelper;
+    }
+
+
+    private ShoppingSQLiteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -56,5 +64,23 @@ public class ShoppingSQLiteOpenHelper extends SQLiteOpenHelper{
         this.onCreate(db);
     }
 
+    public Cursor searchItems(String query){
+        SQLiteDatabase db = getReadableDatabase();
+        String selection = COL_ITEM_NAME + " like ? or " + COL_ITEM_NAME + " like ?";
+        String[] selectionArgs = {query + "%", "%"+query+"%"};
+
+//        String selection = COL_ITEM_NAME + " like ? ";
+//        String[] selectionArgs = {query + "%"};
+        Cursor cursor = db.query(
+                SHOPPING_LIST_TABLE_NAME,
+                SHOPPING_COLUMNS,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+        return cursor;
+
+    }
 
 }
