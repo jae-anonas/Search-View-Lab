@@ -44,7 +44,7 @@ public class ShoppingSQLiteOpenHelper extends SQLiteOpenHelper{
 
     public static ShoppingSQLiteOpenHelper getInstance (Context context){
         if (mShoppingSQLiteOpenHelper == null)
-            mShoppingSQLiteOpenHelper = new ShoppingSQLiteOpenHelper(context);
+            mShoppingSQLiteOpenHelper = new ShoppingSQLiteOpenHelper(context.getApplicationContext());
         return mShoppingSQLiteOpenHelper;
     }
 
