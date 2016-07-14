@@ -69,8 +69,6 @@ public class ShoppingSQLiteOpenHelper extends SQLiteOpenHelper{
         String selection = COL_ITEM_NAME + " like ? or " + COL_ITEM_NAME + " like ?";
         String[] selectionArgs = {query + "%", "%"+query+"%"};
 
-//        String selection = COL_ITEM_NAME + " like ? ";
-//        String[] selectionArgs = {query + "%"};
         Cursor cursor = db.query(
                 SHOPPING_LIST_TABLE_NAME,
                 SHOPPING_COLUMNS,
